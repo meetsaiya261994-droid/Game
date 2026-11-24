@@ -39,46 +39,18 @@ jobs:
           distribution: temurin
           java-version: '21'
 
+      # FIX: don't install the removed 'tools' package
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools'
+          log-accepted-android-sdk-licenses: false
 
       # Android SDK 36 = compileSdk/targetSdk used by Capacitor 8
       - name: Install Android SDK 36 packages
         run: |
           yes | sdkmanager --licenses > /dev/null || true
-          sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
+          sdkmanager "platforms;android-36" "build-tools;36.0.0"
 
       - name: Install game dependencies
-        run: |
-          cd "$APP_DIR"
-          npm install --no-audit --no-fund --legacy-peer-deps
-
-      - name: Build web game (Vite)
-        run: |
-          cd "$APP_DIR"
-          npx vite build
-          test -f dist/index.html || (echo "dist/index.html missing - web build failed" && exit 1)
-
-      - name: Install Capacitor 8
-        run: |
-          cd "$APP_DIR"
-          npm install --no-audit --no-fund --legacy-peer-deps @capacitor/core@^8 @capacitor/cli@^8 @capacitor/android@^8
-
-      - name: Create Capacitor config
-        run: |
-          cd "$APP_DIR"
-          cat > capacitor.config.json <<EOF
-          {
-            "appId": "${APP_ID}",
-            "appName": "${APP_NAME}",
-            "webDir": "dist",
-            "android": {
-              "allowMixedContent": true
-            }
-          }
-          EOF
-          cat capacitor.config.json
-
-      - name: Add Android platform and sync
-        run: |
-          cd
+      
