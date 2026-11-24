@@ -1,0 +1,1184 @@
+# MASTER DEVELOPMENT PROMPT
+# PROJECT: TEMPLE QUEST – RUN & CRUSH
+## Complete Android Game Development Using Kotlin
+
+You are an expert Android game developer, 3D game designer, gameplay programmer, UI/UX designer, game architect, and QA testing engineer.
+
+Your task is to DESIGN, DEVELOP, CODE, TEST, AND DELIVER a complete, functional Android mobile game called **TEMPLE QUEST – RUN & CRUSH**.
+
+This is not a request for a game concept, a design document, a static prototype, or a collection of screenshots. I want an actual playable Android game with working controls, real gameplay, multiple levels, a puzzle system, rewards, saved progress, and a complete game interface.
+
+You must implement the actual game mechanics. Do not create buttons that do nothing. Do not use fake gameplay, static illustrations pretending to be playable environments, or simulated rewards.
+
+Explain your development decisions clearly and implement the project step by step.
+
+---
+
+# PART 1: UNDERSTAND THE TWO GAMES WE ARE MERGING
+
+Before writing code, understand these two games and their mechanics.
+
+## A. TEMPLE RUN – ENDLESS RUNNER GAMEPLAY
+
+Reference game: Temple Run.
+
+Temple Run is a 3D third-person running adventure game.
+
+Third-person means the camera follows the player from behind. The player can see their character running in front of the camera.
+
+### How Temple Run works
+
+1. The character automatically runs forward.
+2. The player controls the character using finger swipes.
+3. Swipe left: The character moves left.
+4. Swipe right: The character moves right.
+5. Swipe up: The character jumps.
+6. Swipe down: The character slides.
+7. The player avoids obstacles, gaps, traps, fire and other dangers.
+8. The player collects coins and power-ups.
+9. Monsters or enemies can chase the player.
+10. If the character hits an obstacle or falls, the player loses or uses a revive.
+
+### Gameplay elements to implement
+
+- 3D running character.
+- Third-person follow camera.
+- Automatic forward movement.
+- Left, middle and right running lanes.
+- Jumping animation.
+- Sliding animation.
+- Turning at designated junctions.
+- Obstacles and traps.
+- Collectible coins.
+- Power-ups.
+- Enemy or monster chase sequences.
+- Collision detection.
+- Running sound effects.
+- Game-over system.
+
+### Important difference from original Temple Run
+
+I DO NOT WANT INFINITE RUNNING.
+
+Our game must have finite, individually designed levels.
+
+Every level must have:
+- A starting point.
+- A defined running path.
+- Obstacles and challenges.
+- A destination.
+- A treasure chamber.
+- A locked treasure chest.
+
+The player must complete the running section to reach the treasure chest.
+
+The running gameplay should feel like Temple Run, but our maps, characters, environment, level designs, animations, branding and visual identity must be original.
+
+## B. CANDY CRUSH SAGA – MATCH-3 PUZZLE GAMEPLAY
+
+Reference game: Candy Crush Saga.
+
+Candy Crush is a colourful match-3 puzzle game.
+
+Match-3 means matching at least three identical coloured objects in a horizontal or vertical line.
+
+### How Candy Crush works
+
+Imagine a board containing colourful candies or gems.
+
+For example:
+
+- Red gems.
+- Blue gems.
+- Green gems.
+- Yellow gems.
+- Purple gems.
+
+The player swaps the position of two adjacent gems.
+
+If three or more identical gems form a horizontal or vertical line, they disappear.
+
+New gems fall from above to fill the empty spaces.
+
+This process is called cascading.
+
+The player earns points for every successful match.
+
+### Puzzle mechanics to implement
+
+1. An 8 × 8 puzzle board by default.
+2. Five different gem colours.
+3. Finger-based touch controls.
+4. Swap two adjacent gems.
+5. Detect horizontal matches.
+6. Detect vertical matches.
+7. Remove matching gems.
+8. Generate new gems.
+9. Allow cascading matches.
+10. Calculate points.
+11. Display remaining moves.
+12. Display the target score.
+13. Display puzzle completion.
+14. Display puzzle failure.
+15. Allow the player to retry.
+
+### Special gems
+
+Implement these special combinations:
+
+**Match 4 – Rocket Gem**
+
+Creates a special gem that clears an entire row or column, depending on its orientation.
+
+**Match 5 – Rainbow Gem**
+
+Creates a powerful gem that clears all gems of a selected colour.
+
+**L-shaped or T-shaped match – Bomb Gem**
+
+Creates a bomb that clears surrounding gems in a 3 × 3 area.
+
+**Combo system**
+
+When two special gems are combined, they trigger a more powerful clearing effect.
+
+Add satisfying animations, particle effects, sound effects and score effects.
+
+Important: The puzzle should be genuinely playable. Do not simply display a decorative Candy Crush-style board.
+
+---
+
+# PART 2: OUR ORIGINAL GAME CONCEPT
+
+## TEMPLE QUEST – RUN & CRUSH
+
+This game combines the two gameplay styles into one complete adventure.
+
+The main concept is:
+
+**RUN THROUGH THE TEMPLE → REACH THE TREASURE → SOLVE THE PUZZLE → UNLOCK THE CHEST → COLLECT REWARDS → UNLOCK THE NEXT LEVEL.**
+
+The running and puzzle gameplay are two separate stages of the same level.
+
+They must be connected through a common story and reward system.
+
+The player must complete BOTH stages to finish a level.
+
+## Complete gameplay flow
+
+### STAGE 1: MAIN MENU
+
+Display a beautiful cinematic game home screen.
+
+Include:
+
+- Game logo.
+- Play button.
+- Level selection.
+- Settings.
+- Sound ON/OFF.
+- Music ON/OFF.
+- Character selection.
+- Player coin balance.
+- Player diamond balance.
+- Daily rewards.
+- Store.
+
+The main menu should look like a professionally designed adventure game.
+
+### STAGE 2: LEVEL SELECTION
+
+Create a level selection screen.
+
+Display numbered levels in a visually attractive map.
+
+For example:
+
+World 1: Ancient Jungle Temple
+- Level 1.
+- Level 2.
+- Level 3.
+- Level 4.
+- Level 5.
+- Level 6.
+- Level 7.
+- Level 8.
+- Level 9.
+- Level 10.
+
+Only the first level should be unlocked initially.
+
+Completing a level unlocks the next level.
+
+Locked levels should display a lock symbol.
+
+Completed levels should display stars or completion marks.
+
+The player must be able to replay previously completed levels.
+
+### STAGE 3: RUNNING GAMEPLAY
+
+When the player presses PLAY, start the selected level.
+
+Show:
+- Character.
+- 3D environment.
+- Running path.
+- Coins.
+- Obstacles.
+- Traps.
+- Score.
+- Distance remaining.
+- Pause button.
+- Health or revive indicator.
+
+The character automatically runs forward.
+
+The player controls the character through swipes.
+
+### Running controls
+
+| Player action | Game response |
+|---|---|
+| Swipe left | Move one lane left |
+| Swipe right | Move one lane right |
+| Swipe up | Jump |
+| Swipe down | Slide |
+| Tap pause | Pause the game |
+
+Use responsive controls.
+
+The character should not move unpredictably or react multiple times to one swipe.
+
+### Running level completion
+
+Every level must have a fixed length.
+
+For the first level, use approximately 60–90 seconds of running gameplay, depending on player performance.
+
+The running distance should increase gradually in later levels.
+
+The player must encounter a visible destination near the end.
+
+Examples:
+- An ancient temple entrance.
+- A giant golden door.
+- A treasure chamber.
+- An underground vault.
+
+When the player reaches the destination, stop the running gameplay.
+
+Play a cinematic transition.
+
+The character enters the treasure chamber.
+
+### STAGE 4: TREASURE CHEST
+
+Display a large, beautiful, detailed 3D treasure chest.
+
+The chest should look locked.
+
+The character stands near the chest.
+
+Display a message:
+
+"THE TREASURE IS LOCKED!"
+
+"Complete the magical gem puzzle to unlock your treasure."
+
+Show a button:
+
+UNLOCK CHEST
+
+When the player presses this button, transition to the match-3 puzzle screen.
+
+### STAGE 5: MATCH-3 PUZZLE
+
+Now the running gameplay stops completely.
+
+Display a dedicated full-screen puzzle interface.
+
+The puzzle should contain:
+- 8 × 8 gem board.
+- Five gem colours.
+- Score counter.
+- Target score.
+- Remaining moves.
+- Pause button.
+- Booster buttons, where available.
+
+Example:
+
+Level 1 puzzle:
+- Target score: 1,000.
+- Available moves: 20.
+- Required task: Reach 1,000 points.
+
+The player swaps adjacent gems and matches three or more identical gems.
+
+The puzzle must be different in every level.
+
+Do not repeat exactly the same puzzle layout for all levels.
+
+Increase difficulty gradually.
+
+### Puzzle rules
+
+- Matching three gems gives basic points.
+- Matching four creates a rocket.
+- Matching five creates a rainbow gem.
+- L-shaped or T-shaped matches create a bomb.
+- Special combinations generate additional effects.
+- Cascading matches award bonus points.
+
+The game must validate every move.
+
+If a move produces no match, return the gems to their original positions.
+
+If no possible moves remain on the board, automatically shuffle the board.
+
+Ensure that the board always has at least one valid move.
+
+### Puzzle victory
+
+When the player reaches the target score within the available moves:
+
+- Stop the puzzle.
+- Show a victory animation.
+- Transition back to the treasure chamber.
+- Play a chest-unlocking animation.
+- Open the treasure chest.
+
+### Puzzle failure
+
+If the player runs out of moves before reaching the target:
+
+Display:
+
+"PUZZLE FAILED!"
+
+Buttons:
+- RETRY PUZZLE.
+- USE BOOSTER, if available.
+- RETURN TO MENU.
+
+The player should not lose the completed running section immediately after failing the puzzle.
+
+Allow the player to retry the puzzle without replaying the running section.
+
+This is important for player satisfaction.
+
+### STAGE 6: TREASURE REWARDS
+
+When the chest opens, display an exciting cinematic reward animation.
+
+Possible rewards:
+
+- Gold coins.
+- Diamonds.
+- Ancient keys.
+- Rare gems.
+- Character costumes.
+- New characters.
+- Power-ups.
+- Special artifacts.
+
+Example Level 1 rewards:
+
+- 500 coins.
+- 10 diamonds.
+- 1 ancient artifact.
+- 3 stars for perfect performance.
+
+Create different reward values based on level difficulty and performance.
+
+### STAGE 7: LEVEL COMPLETION
+
+Display:
+
+"LEVEL COMPLETED!"
+
+Show:
+- Running score.
+- Coins collected.
+- Puzzle score.
+- Stars earned.
+- Total rewards.
+- Time taken.
+
+Buttons:
+- NEXT LEVEL.
+- REPLAY.
+- HOME.
+
+When the player presses NEXT LEVEL, load the next unlocked level.
+
+---
+
+# PART 3: WORLDS AND MAP DESIGN
+
+The game should not remain limited to one temple.
+
+Create different worlds with unique visual environments, obstacles, colours, music and treasure chests.
+
+Every world should have 10 levels.
+
+## WORLD 1: ANCIENT JUNGLE TEMPLE
+
+Visual environment:
+- Dense green jungle.
+- Ancient stone pathways.
+- Waterfalls.
+- Old temple structures.
+- Broken bridges.
+- Ancient statues.
+- Hanging vines.
+- Dark caves.
+
+Obstacles:
+- Fallen trees.
+- Rolling stones.
+- Fire traps.
+- Broken floors.
+- Moving stone barriers.
+- Giant swinging axes.
+
+Treasure theme:
+Golden jungle treasure chest.
+
+## WORLD 2: EGYPTIAN LOST PYRAMID
+
+Visual environment:
+- Egyptian desert.
+- Sand dunes.
+- Ancient pyramids.
+- Pharaoh statues.
+- Underground tombs.
+- Hieroglyphic walls.
+
+Obstacles:
+- Falling sand.
+- Rolling boulders.
+- Spikes.
+- Moving walls.
+- Fire traps.
+
+Treasure theme:
+Pharaoh's golden chest.
+
+## WORLD 3: MYSTICAL ICE KINGDOM
+
+Visual environment:
+- Snow-covered mountains.
+- Frozen temples.
+- Ice bridges.
+- Snowstorms.
+- Frozen waterfalls.
+
+Obstacles:
+- Slippery surfaces.
+- Falling ice.
+- Ice spikes.
+- Collapsing bridges.
+
+Treasure theme:
+Crystal ice chest.
+
+## WORLD 4: LOST UNDERWATER CITY
+
+Visual environment:
+- Underwater ruins.
+- Blue ocean atmosphere.
+- Ancient submerged architecture.
+- Coral formations.
+- Sunken treasure rooms.
+
+Obstacles:
+- Collapsing structures.
+- Water currents.
+- Moving barriers.
+- Dangerous sea creatures.
+
+Treasure theme:
+Ocean treasure chest.
+
+## WORLD 5: VOLCANIC KINGDOM
+
+Visual environment:
+- Active volcano.
+- Lava rivers.
+- Black stone temples.
+- Fire-filled caves.
+- Smoke and ash.
+
+Obstacles:
+- Lava gaps.
+- Falling rocks.
+- Fire walls.
+- Moving platforms.
+
+Treasure theme:
+Magma treasure chest.
+
+Build these worlds as separate environments.
+
+Do not simply change the background image.
+
+The actual running paths, obstacles, lighting, structures and gameplay should change.
+
+For the first playable release, fully implement World 1 with 10 playable levels. Build the architecture so that additional worlds can be added without rewriting the entire game.
+
+---
+
+# PART 4: LEVEL PROGRESSION AND DIFFICULTY
+
+Create a proper difficulty progression.
+
+Example:
+
+| Levels | Running difficulty | Puzzle difficulty |
+|---|---|---|
+| 1–2 | Very easy | Easy |
+| 3–4 | Easy | Easy |
+| 5–6 | Medium | Medium |
+| 7–8 | Difficult | Medium-hard |
+| 9 | Very difficult | Hard |
+| 10 | Boss challenge | Very hard |
+
+Each level must introduce something new.
+
+Examples:
+
+- Level 1: Basic running and simple matching.
+- Level 2: Jumping and sliding.
+- Level 3: Moving obstacles.
+- Level 4: Narrow paths.
+- Level 5: Monster chase.
+- Level 6: Fire obstacles.
+- Level 7: More difficult combinations.
+- Level 8: Multiple obstacle sequences.
+- Level 9: Difficult running and puzzle.
+- Level 10: Final treasure challenge.
+
+Do not make levels difficult only by increasing speed.
+
+Introduce new obstacle patterns, path layouts, puzzle targets and special mechanics.
+
+---
+
+# PART 5: CHARACTERS AND UPGRADES
+
+Create an original main character.
+
+The character should be a treasure hunter or adventurer.
+
+The character should have:
+- Running animation.
+- Jumping animation.
+- Sliding animation.
+- Turning animation.
+- Falling animation.
+- Victory animation.
+- Idle animation.
+
+Create a character selection system.
+
+Allow players to unlock different characters using coins, diamonds or level progression.
+
+### Character upgrades
+
+Create upgrade options for:
+
+1. Running speed.
+2. Magnet duration.
+3. Shield duration.
+4. Coin collection multiplier.
+5. Extra health.
+6. Special puzzle boosters.
+
+Upgrades must have actual gameplay effects.
+
+For example, upgrading the coin magnet must increase the duration for which coins are attracted.
+
+---
+
+# PART 6: POWER-UPS AND BOOSTERS
+
+Create two separate categories.
+
+## Running power-ups
+
+**Coin Magnet:** Automatically attracts nearby coins for a limited time.
+
+**Shield:** Protects the character from one obstacle collision.
+
+**Speed Boost:** Temporarily increases running speed and allows the character to pass through certain obstacles.
+
+**Double Coins:** Doubles the coins collected for a limited duration.
+
+**Revive:** Allows the player to continue after one fatal collision, if available.
+
+## Puzzle boosters
+
+**Hammer:** Removes one selected gem.
+
+**Shuffle:** Rearranges the puzzle board.
+
+**Extra Moves:** Adds five additional moves.
+
+**Rainbow Gem:** Clears one selected gem colour.
+
+**Bomb:** Clears a surrounding group of gems.
+
+All boosters must have working effects.
+
+The player can earn boosters through gameplay or unlock them using in-game currency.
+
+---
+
+# PART 7: REWARDS AND CURRENCY SYSTEM
+
+Create two currencies.
+
+**Gold Coins:**
+Used for character upgrades, basic boosters and other standard purchases.
+
+**Diamonds:**
+A rare currency used for premium characters, special items and additional benefits.
+
+Create:
+- Reward balance.
+- Reward animations.
+- Daily login rewards.
+- Level completion rewards.
+- Achievement rewards.
+- Treasure chest rewards.
+- Bonus rewards for collecting all coins.
+
+All balances must be saved permanently on the device.
+
+Never reset a player's balance when they close the application.
+
+---
+
+# PART 8: GRAPHICS AND VISUAL QUALITY
+
+I want a polished 3D mobile game.
+
+Visual references:
+- Temple Run-style third-person perspective.
+- High-quality adventure game environments.
+- Colourful, attractive match-3 puzzle graphics.
+- Cinematic treasure chest opening.
+- Smooth animations.
+- Attractive lighting.
+- Shadows.
+- Particles.
+- Water effects.
+- Fire effects.
+- Responsive UI animations.
+
+Do not make the game look like a basic 2D school project.
+
+Do not use plain coloured cubes as the final character, environment or treasure chest.
+
+If professional 3D assets are unavailable, create attractive low-poly 3D assets using procedural modelling.
+
+Low-poly means using simplified 3D shapes while maintaining an intentional, polished art style.
+
+Use original or legally licensed assets.
+
+Do not copy Temple Run or Candy Crush characters, logos, artwork, sounds, maps or copyrighted assets.
+
+---
+
+# PART 9: ANDROID DEVELOPMENT REQUIREMENTS
+
+This is an ANDROID MOBILE GAME.
+
+The primary target is Android smartphones.
+
+## Preferred programming language
+
+Use Kotlin.
+
+## Recommended technology stack
+
+- Kotlin as the primary programming language.
+- Android Studio as the development environment.
+- LibGDX with Kotlin integration as the primary game framework.
+- OpenGL ES for 3D rendering through the game framework.
+- Android Gradle Plugin for building the Android application.
+- Android SDK for Android device compatibility.
+- SharedPreferences or DataStore for simple settings and local preferences.
+- Room Database for structured game progress, inventory and player data, if needed.
+
+Use compatible and stable library versions.
+
+Do not invent dependencies or use nonexistent APIs.
+
+If another technology is necessary for a specific feature, explain why before introducing it.
+
+### Android requirements
+
+- Portrait or landscape orientation must be selected deliberately. Prefer landscape orientation for the 3D runner.
+- Responsive controls for different Android screen sizes.
+- Smooth gameplay.
+- Touchscreen support.
+- Proper pause and resume behaviour.
+- Save progress when the application closes.
+- Restore progress when the application reopens.
+- Manage Android lifecycle events.
+- Handle low-memory devices.
+- Avoid unnecessary background processes.
+- Optimize 3D models and textures.
+- Minimize battery consumption.
+- No requirement for internet connectivity for basic gameplay.
+
+The game must work offline.
+
+Do not make login, cloud storage or online services mandatory.
+
+---
+
+# PART 10: GAME ARCHITECTURE
+
+Create a clean, modular code structure.
+
+Do not put the entire game inside one Kotlin file.
+
+Separate the code into modules or clearly organized packages.
+
+Suggested structure:
+
+app/
+- MainActivity.kt
+- AndroidGameLauncher.kt
+
+game/
+- GameManager.kt
+- GameState.kt
+- GameConfiguration.kt
+
+runner/
+- RunnerScreen.kt
+- PlayerController.kt
+- CameraController.kt
+- ObstacleManager.kt
+- CoinManager.kt
+- CollisionManager.kt
+- LevelRunnerManager.kt
+
+puzzle/
+- PuzzleScreen.kt
+- PuzzleBoard.kt
+- Gem.kt
+- MatchDetector.kt
+- GemSwapController.kt
+- SpecialGemManager.kt
+- PuzzleScoreManager.kt
+- PuzzleLevelManager.kt
+
+levels/
+- LevelManager.kt
+- LevelData.kt
+- WorldManager.kt
+- ObstacleData.kt
+
+rewards/
+- RewardManager.kt
+- CurrencyManager.kt
+- InventoryManager.kt
+
+characters/
+- CharacterManager.kt
+- CharacterData.kt
+- UpgradeManager.kt
+
+ui/
+- MainMenuScreen.kt
+- LevelSelectionScreen.kt
+- PauseScreen.kt
+- VictoryScreen.kt
+- GameOverScreen.kt
+- SettingsScreen.kt
+- RewardScreen.kt
+
+storage/
+- GameDatabase.kt
+- GamePreferences.kt
+- ProgressRepository.kt
+
+audio/
+- SoundManager.kt
+- MusicManager.kt
+
+Use appropriate architecture and avoid unnecessary complexity.
+
+Keep game logic separate from UI and rendering.
+
+---
+
+# PART 11: GAME STATE MANAGEMENT
+
+Create a proper game state system.
+
+The game must know which stage is currently active.
+
+Required states:
+
+1. MAIN_MENU
+2. LEVEL_SELECTION
+3. RUNNING
+4. RUNNING_PAUSED
+5. TREASURE_CHAMBER
+6. PUZZLE
+7. PUZZLE_PAUSED
+8. PUZZLE_FAILED
+9. CHEST_OPENING
+10. LEVEL_COMPLETED
+11. GAME_OVER
+
+Transitions must happen correctly.
+
+Example:
+
+MAIN_MENU → LEVEL_SELECTION → RUNNING → TREASURE_CHAMBER → PUZZLE → CHEST_OPENING → LEVEL_COMPLETED → NEXT_LEVEL.
+
+If the puzzle fails:
+
+PUZZLE → PUZZLE_FAILED → PUZZLE_RETRY.
+
+Do not send the player back to the running stage after a puzzle failure.
+
+If the player fails during running, handle the running game-over system separately.
+
+---
+
+# PART 12: SAVE SYSTEM
+
+This is extremely important.
+
+The player must never lose completed progress because they closed the game.
+
+Save:
+
+- Current unlocked level.
+- Completed levels.
+- Stars earned.
+- Gold coins.
+- Diamonds.
+- Characters unlocked.
+- Current selected character.
+- Character upgrades.
+- Boosters.
+- Achievements.
+- Sound settings.
+- Music settings.
+
+Save progress after important actions.
+
+For example:
+- When coins are collected and banked.
+- When a level is completed.
+- When rewards are received.
+- When an upgrade is purchased.
+- When a character is unlocked.
+
+Use a reliable local persistence system.
+
+Do not rely only on temporary memory variables.
+
+---
+
+# PART 13: SOUND AND MUSIC
+
+Add suitable original sound effects.
+
+Running:
+- Footsteps.
+- Jump.
+- Slide.
+- Coin collection.
+- Collision.
+- Monster roar.
+- Power-up activation.
+
+Puzzle:
+- Gem swapping.
+- Successful match.
+- Special gem activation.
+- Bomb explosion.
+- Score increase.
+- Puzzle victory.
+- Puzzle failure.
+
+Treasure:
+- Chest unlocking.
+- Chest opening.
+- Coins falling.
+- Reward collection.
+- Level completion.
+
+Background music should change according to the environment.
+
+Provide separate ON/OFF settings for music and sound effects.
+
+---
+
+# PART 14: USER INTERFACE AND DESIGN
+
+The interface must look like a professional commercial mobile game.
+
+Create:
+
+1. Splash screen.
+2. Loading screen.
+3. Main menu.
+4. Level selection.
+5. Running HUD.
+6. Pause menu.
+7. Treasure chamber.
+8. Match-3 puzzle interface.
+9. Puzzle victory screen.
+10. Puzzle failure screen.
+11. Treasure reward screen.
+12. Level completion screen.
+13. Character selection.
+14. Upgrade store.
+15. Inventory.
+16. Settings.
+17. Daily rewards.
+
+HUD means Heads-Up Display: information displayed over the gameplay, such as score, coins, distance and pause controls.
+
+All buttons must work.
+
+All navigation must work.
+
+All screens must be connected to the actual game state.
+
+Use readable text, attractive icons and appropriate spacing.
+
+---
+
+# PART 15: TESTING AND QUALITY CONTROL
+
+You are responsible for testing the game logic.
+
+Do not claim that something works unless it has actually been implemented and tested.
+
+Test the following:
+
+### Running tests
+
+- Left swipe works.
+- Right swipe works.
+- Jump works.
+- Slide works.
+- Collision detection works.
+- Coins can be collected.
+- Power-ups work.
+- The player reaches the level destination.
+- The running stage ends correctly.
+
+### Puzzle tests
+
+- Gems can be swapped.
+- Valid matches are detected.
+- Invalid swaps are reversed.
+- Cascading works.
+- Special gems work.
+- Scores calculate correctly.
+- Moves decrease correctly.
+- Victory conditions work.
+- Failure conditions work.
+- Boards always have a valid move.
+
+### Progression tests
+
+- Completing a level unlocks the next level.
+- Locked levels cannot be accessed.
+- Rewards are correctly credited.
+- Puzzle retry does not restart running.
+- Progress survives application restart.
+- Currency balances remain correct.
+
+### Android tests
+
+- Application launches correctly.
+- No crashes when changing screens.
+- Pause and resume work.
+- Touch controls work on different screen sizes.
+- Application works offline.
+- Performance is acceptable on mid-range Android phones.
+
+---
+
+# PART 16: DEVELOPMENT INSTRUCTIONS FOR GEMINI
+
+Follow these instructions strictly.
+
+You must work in phases.
+
+Do not attempt to generate the entire project in one enormous code response and leave important files incomplete.
+
+### PHASE 1: PROJECT FOUNDATION
+
+1. Create the Android project.
+2. Configure Kotlin.
+3. Configure LibGDX.
+4. Configure Gradle dependencies.
+5. Create the game launcher.
+6. Create the main game loop.
+7. Create the screen management system.
+8. Confirm that the application builds and launches.
+
+### PHASE 2: RUNNER GAME
+
+1. Create the 3D environment.
+2. Create the player character.
+3. Implement third-person camera.
+4. Implement automatic running.
+5. Implement swipe controls.
+6. Implement jumping.
+7. Implement sliding.
+8. Implement lanes.
+9. Implement obstacles.
+10. Implement coins.
+11. Implement collision detection.
+12. Implement a fixed level destination.
+
+Make the first running level fully playable before proceeding.
+
+### PHASE 3: MATCH-3 GAME
+
+1. Create the 8 × 8 board.
+2. Generate gems.
+3. Implement swapping.
+4. Implement match detection.
+5. Implement cascading.
+6. Implement special gems.
+7. Implement score calculation.
+8. Implement move limits.
+9. Implement victory and failure conditions.
+
+Make the puzzle completely playable before proceeding.
+
+### PHASE 4: INTEGRATION
+
+Connect the running level to the treasure chamber.
+
+Connect the treasure chamber to the puzzle.
+
+Connect puzzle victory to chest opening.
+
+Connect chest opening to rewards.
+
+Connect rewards to level progression.
+
+This connection is the most important part of the game.
+
+### PHASE 5: COMPLETE GAME SYSTEM
+
+Implement:
+- Main menu.
+- Level selection.
+- Currency.
+- Rewards.
+- Upgrades.
+- Characters.
+- Save system.
+- Audio.
+- Settings.
+- Achievements.
+
+### PHASE 6: FINAL TESTING
+
+Test the complete gameplay from start to finish.
+
+The following sequence must work without errors:
+
+Open game → Select level → Run → Avoid obstacles → Reach chest → Solve puzzle → Unlock chest → Collect rewards → Complete level → Unlock next level → Play next level.
+
+---
+
+# PART 17: STRICT RULES
+
+1. Do not provide only a game design explanation.
+2. Do not provide only sample code.
+3. Do not create a fake interactive interface.
+4. Do not leave important functions empty.
+5. Do not use TODO comments instead of actual implementation.
+6. Do not create buttons without functionality.
+7. Do not skip collision detection.
+8. Do not skip the puzzle algorithm.
+9. Do not skip data persistence.
+10. Do not make running infinite.
+11. Do not force the player to repeat running after puzzle failure.
+12. Do not use copyrighted Temple Run or Candy Crush assets.
+13. Do not claim that the APK is ready unless it has actually been built successfully.
+14. Do not hide errors.
+15. If a feature cannot be implemented, explain the exact limitation and provide the best working alternative.
+
+If output limits prevent you from generating all files at once, divide the project into clearly numbered development stages.
+
+Maintain a file completion checklist.
+
+Never silently omit files.
+
+Keep track of previously generated code so that new code does not break existing functionality.
+
+When updating a file, provide the complete updated file rather than an incomplete fragment.
+
+Do not change working architecture unnecessarily.
+
+---
+
+# PART 18: FINAL DELIVERABLES
+
+At the end, I expect:
+
+1. Complete Android Studio project.
+2. Kotlin source code.
+3. Working 3D running gameplay.
+4. Working match-3 puzzle gameplay.
+5. At least 10 fully playable levels in World 1.
+6. Treasure chest opening animation.
+7. Reward and currency system.
+8. Character selection and upgrades.
+9. Local save system.
+10. Sound and music controls.
+11. Complete UI.
+12. Testing results.
+13. Debug APK for installation and testing.
+14. Release APK when the project is ready for release.
+15. Instructions for opening, building and modifying the project in Android Studio.
+
+Provide the exact steps to install the APK on an Android phone.
+
+---
+
+# FINAL INSTRUCTION
+
+Start by understanding the complete game concept.
+
+First explain the proposed technical architecture and confirm the required development environment.
+
+Then begin Phase 1.
+
+Do not stop after creating a plan. Continue generating and implementing the actual project files within the capabilities of the environment.
+
+If you cannot directly create or compile a file in Google AI Studio, provide its complete contents and precise instructions for creating it locally.
+
+Your ultimate objective is to deliver a fully playable Android game, not merely a visual demonstration.
+
+**REMEMBER THE CORE GAMEPLAY:**
+
+TEMPLE RUN-STYLE RUNNING → FINITE LEVEL END → LOCKED TREASURE CHEST → CANDY CRUSH-STYLE MATCH-3 PUZZLE → CHEST OPENS → REWARDS → NEXT LEVEL.
+
+Every running level must lead to a treasure chest. Every treasure chest must require a puzzle. Every successful puzzle must provide rewards and advance the player's adventure.
+
+Build this as one unified, polished, original mobile game.
+
+**PROJECT NAME: TEMPLE QUEST – RUN & CRUSH.**

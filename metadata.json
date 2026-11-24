@@ -1,0 +1,6 @@
+{
+  "name": "Temple Quest – Run & Crush",
+  "description": "A 3D temple adventure runner merged with an 8x8 match-3 gem puzzle to unlock ancient treasure chests across 10 handcrafted levels.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
