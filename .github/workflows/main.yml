@@ -1,56 +1,28 @@
-name: Build Android APK
-
-on:
-  push:
-    branches: [ main, master ]
-  workflow_dispatch:
-
+name: Build APK
+on: [push, workflow_dispatch]
 jobs:
-  build-apk:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
-
-    env:
-      APP_ID: com.templequest.runcrush
-      APP_NAME: Temple Quest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # Works whether package.json is in the repo root or inside a folder like Game-main/
-      - name: Locate project folder
-        run: |
-          PKG=$(find . -maxdepth 3 -name package.json -not -path "*/node_modules/*" | head -n 1)
-          if [ -z "$PKG" ]; then echo "package.json not found"; exit 1; fi
-          echo "APP_DIR=$(dirname "$PKG")" >> "$GITHUB_ENV"
-          echo "Project folder: $(dirname "$PKG")"
-
-      # Node 22 = required by Vite 8 and Capacitor 8
-      - name: Setup Node.js 22
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-
-      # JDK 21 = required by Capacitor 8 / Android Gradle Plugin 8.13
-      - name: Setup JDK 21
-        uses: actions/setup-java@v4
+          node-version: 22
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '21'
-
-      # FIX: don't install the removed 'tools' package
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+          java-version: 21
+      - uses: android-actions/setup-android@v3
         with:
-          packages: 'platform-tools'
+          packages: "platform-tools platforms;android-36 build-tools;36.0.0"
           log-accepted-android-sdk-licenses: false
-
-      # Android SDK 36 = compileSdk/targetSdk used by Capacitor 8
-      - name: Install Android SDK 36 packages
-        run: |
-          yes | sdkmanager --licenses > /dev/null || true
-          sdkmanager "platforms;android-36" "build-tools;36.0.0"
-
-      - name: Install game dependencies
-      
+      - run: npm install --legacy-peer-deps
+      - run: npx vite build
+      - run: npm install --legacy-peer-deps @capacitor/core@8 @capacitor/cli@8 @capacitor/android@8
+      - run: echo '{"appId":"com.templequest.runcrush","appName":"Temple Quest","webDir":"dist"}' > capacitor.config.json
+      - run: npx cap add android && npx cap sync android
+      - run: cd android && chmod +x gradlew && ./gradlew assembleDebug --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TempleQuest-APK
+          path: android/app/build/outputs/apk/debug/*.apk
